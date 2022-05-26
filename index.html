@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+          "vue-demi": "https://unpkg.com/vue-demi/lib/index.mjs",
+          "@vueuse/shared": "https://unpkg.com/@vueuse/shared/index.mjs",
+          "@vueuse/core": "https://unpkg.com/@vueuse/core/index.mjs",
+          "@fawmi/vue-google-maps": "https://unpkg.com/@fawmi/vue-google-maps@0.9.67/src/main.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app" style="height: 100vh; padding: 32px">
+      <h1>Markers</h1>
+      <input
+        v-for="value in ['lat','long','title','description']"
+        type="text"
+        :value="value"
+        readonly
+        style="border: white; pointer-events: none"
+      />
+      <div v-for="marker,i in markers">
+        <input type="text" v-model.number="marker.lat" />
+        <input type="text" v-model.number="marker.lon" />
+        <input type="text" v-model.number="marker.title" />
+        <input type="text" v-model.number="marker.description" />
+        <button @click="del(i)">Delete</button>
+      </div>
+      <div>
+        <input type="text" v-model.number="newMarker.lat" />
+        <input type="text" v-model.number="newMarker.lon" />
+        <input type="text" v-model="newMarker.title" />
+        <input type="text" v-model="newMarker.description" />
+        <button @click="add">Add</button>
+      </div>
+
+      <div id="map"></div>
+    </div>
+    <hr />
+
+    <form>
+      <label for="">Latitude:</label>
+      <br />
+      <input type="text" id="input-lat" />
+      <br />
+      <br />
+
+      <label for="">Longitude:</label>
+      <br />
+      <input type="text" id="input-lng" />
+      <br />
+    </form>
+
+    <script src="app.js" type="module"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?callback=initMap&v=weekly"
+      defer
+    ></script>
+  </body>
+</html>
